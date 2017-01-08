@@ -21,10 +21,20 @@ var testBuzzStruct = []struct {
 	{10, "Buzz"},
 	{11, "11"},
 }
+var testFizzBuzzStruct = []struct {
+	input    float64
+	expected string
+}{
+	{1, "1"},
+	{2, "2"},
+	{15, "FizzBuzz"},
+	{30, "FizzBuzz"},
+	{11, "11"},
+}
 
 func TestShouldResponseFizzInCaseOfMultipleOfThree(t *testing.T) {
 	for _, structure := range testFizzStruct {
-		stringObtained := FizzBuzz(structure.input)
+		stringObtained := GoFizzBuzz(structure.input)
 
 		if stringObtained != structure.expected {
 			t.Fail()
@@ -34,7 +44,17 @@ func TestShouldResponseFizzInCaseOfMultipleOfThree(t *testing.T) {
 
 func TestShouldResponseBuzzInCaseOfMultipleOfFive(t *testing.T) {
 	for _, structure := range testBuzzStruct {
-		stringObtained := FizzBuzz(structure.input)
+		stringObtained := GoFizzBuzz(structure.input)
+
+		if stringObtained != structure.expected {
+			t.Fail()
+		}
+	}
+}
+
+func TestShouldResponseFizzBuzzInCaseOfMultipleOfEitherThreeAndFive(t *testing.T) {
+	for _, structure := range testFizzBuzzStruct {
+		stringObtained := GoFizzBuzz(structure.input)
 
 		if stringObtained != structure.expected {
 			t.Fail()
