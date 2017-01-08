@@ -1,6 +1,9 @@
-package main
+package fizzbuzz_test
 
-import "testing"
+import (
+	"testing"
+	"github.com/MarcosSegovia/FizzBuzz"
+)
 
 var testFizzStruct = []struct {
 	input    float64
@@ -57,7 +60,7 @@ var testAllTypesStruct = []struct {
 
 func TestShouldResponseFizzInCaseOfMultipleOfThree(t *testing.T) {
 	for _, structure := range testFizzStruct {
-		stringObtained := GoFizzBuzz(structure.input)
+		stringObtained := fizzbuzz.DoFizzBuzz(structure.input)
 
 		if stringObtained != structure.expected {
 			t.Fail()
@@ -67,7 +70,7 @@ func TestShouldResponseFizzInCaseOfMultipleOfThree(t *testing.T) {
 
 func TestShouldResponseBuzzInCaseOfMultipleOfFive(t *testing.T) {
 	for _, structure := range testBuzzStruct {
-		stringObtained := GoFizzBuzz(structure.input)
+		stringObtained := fizzbuzz.DoFizzBuzz(structure.input)
 
 		if stringObtained != structure.expected {
 			t.Fail()
@@ -77,7 +80,7 @@ func TestShouldResponseBuzzInCaseOfMultipleOfFive(t *testing.T) {
 
 func TestShouldResponseFizzBuzzInCaseOfMultipleOfEitherThreeAndFive(t *testing.T) {
 	for _, structure := range testFizzBuzzStruct {
-		stringObtained := GoFizzBuzz(structure.input)
+		stringObtained := fizzbuzz.DoFizzBuzz(structure.input)
 
 		if stringObtained != structure.expected {
 			t.Fail()
@@ -87,7 +90,7 @@ func TestShouldResponseFizzBuzzInCaseOfMultipleOfEitherThreeAndFive(t *testing.T
 
 func TestShouldResponseAppropriateStringInAnyPosibleCase(t *testing.T) {
 	for _, structure := range testAllTypesStruct {
-		stringObtained := GoFizzBuzz(structure.input)
+		stringObtained := fizzbuzz.DoFizzBuzz(structure.input)
 
 		if stringObtained != structure.expected {
 			t.Fail()

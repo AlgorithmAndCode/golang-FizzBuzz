@@ -1,56 +1,56 @@
-package main
+package fizzbuzz
 
 import (
 	"math"
 	"strconv"
 )
 
-type FizzBuzzType interface {
-	result(number float64) string
+type Resolver interface {
+	Resolve(n float64) string
 }
 
-type Fizz struct {
-	next FizzBuzzType
+type FType struct {
+	next Resolver
 }
 
-func (fizzType *Fizz) result(number float64) string {
-	if 0 == math.Mod(number, 3) {
+func (ft *FType) Resolve(n float64) string {
+	if 0 == math.Mod(n, 3) {
 		return "Fizz"
 	}
-	return fizzType.next.result(number)
+	return ft.next.Resolve(n)
 }
 
-type Buzz struct {
-	next FizzBuzzType
+type BType struct {
+	next Resolver
 }
 
-func (buzzType *Buzz) result(number float64) string {
-	if 0 == math.Mod(number, 5) {
+func (bt *BType) Resolve(n float64) string {
+	if 0 == math.Mod(n, 5) {
 		return "Buzz"
 	}
-	return buzzType.next.result(number)
+	return bt.next.Resolve(n)
 }
 
-type FizzBuzz struct {
-	next FizzBuzzType
+type FBType struct {
+	next Resolver
 }
 
-func (fizzBuzzType *FizzBuzz) result(number float64) string {
-	if 0 == math.Mod(number, 3) && 0 == math.Mod(number, 5) {
+func (fbt *FBType) Resolve(n float64) string {
+	if 0 == math.Mod(n, 3) && 0 == math.Mod(n, 5) {
 		return "FizzBuzz"
 	}
-	return fizzBuzzType.next.result(number)
+	return fbt.next.Resolve(n)
 }
 
 type DefaultType struct{}
 
-func (defaultType *DefaultType) result(number float64) string {
+func (dt *DefaultType) Resolve(n float64) string {
 
-	return strconv.FormatFloat(number, 'f', -1, 64)
+	return strconv.FormatFloat(n, 'f', -1, 64)
 }
 
-var fizzBuzzTypes = &FizzBuzz{&Fizz{&Buzz{&DefaultType{}}}}
+var resolvers = &FBType{&FType{&BType{&DefaultType{}}}}
 
-func GoFizzBuzz(number float64) string {
-	return fizzBuzzTypes.result(number)
+func DoFizzBuzz(n float64) string {
+	return resolvers.Resolve(n)
 }
