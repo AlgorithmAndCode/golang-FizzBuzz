@@ -20,6 +20,17 @@ func (fizzType *Fizz) result(number float64) string {
 	return fizzType.next.result(number)
 }
 
+type Buzz struct {
+	next FizzBuzzType
+}
+
+func (buzzType *Buzz) result(number float64) string {
+	if 0 == math.Mod(number, 5) {
+		return "Buzz"
+	}
+	return buzzType.next.result(number)
+}
+
 type DefaultType struct{}
 
 func (defaultType *DefaultType) result(number float64) string {
@@ -27,7 +38,7 @@ func (defaultType *DefaultType) result(number float64) string {
 	return strconv.FormatFloat(number, 'f', -1, 64)
 }
 
-var fizzBuzzTypes = &Fizz{&DefaultType{}}
+var fizzBuzzTypes = &Fizz{&Buzz{&DefaultType{}}}
 
 func FizzBuzz(number float64) string {
 	return fizzBuzzTypes.result(number)
